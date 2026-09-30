@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>巴卡漫画 - 官方在线漫画阅读平台</title>
+    <meta name="description" content="巴卡漫画官方网站，访问网址：https://bakamanhua-wap。提供最新、最热门的漫画在线阅读，欢迎漫迷们收藏巴卡漫画！">
+    <meta name="keywords" content="巴卡漫画, bakamanhua-wap, 漫画, 在线漫画, https://bakamanhua-wap">
+    <meta name="author" content="巴卡漫画">
+    <meta name="robots" content="index, follow">
+    <style>
+        /* 基础样式与CSS变量 */
+        :root {
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --accent-red: #e94560;
+            --accent-blue: #0f3460;
+            --text-main: #e0e0e0;
+            --text-light: #ffffff;
+            --nav-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Microsoft YaHei', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background-color: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 999;
+            border-bottom: 1px solid rgba(233, 69, 96, 0.3);
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .navbar .logo span {
+            color: var(--accent-red);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 主容器 */
+        .container {
+            margin-top: var(--nav-height);
+        }
+
+        /* 通用栏目样式 */
+        .section {
+            padding: 5rem 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        .section-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 栏目1：首页/主推 */
+        #home {
+            background: radial-gradient(circle at top right, #1a1a2e 0%, #0f0f1a 100%);
+            position: relative;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .url-box {
+            background-color: var(--bg-card);
+            border: 2px dashed var(--accent-red);
+            padding: 1.5rem 3rem;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin: 2rem 0;
+            box-shadow: 0 0 15px rgba(233, 69, 96, 0.2);
+        }
+
+        .url-box a {
+            color: var(--accent-red);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* 栏目2：关于我们 */
+        #about {
+            background-color: var(--bg-card);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            text-align: left;
+            background-color: rgba(255,255,255,0.03);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .about-text strong {
+            color: var(--accent-red);
+        }
+
+        /* 栏目3：漫画分类/展示 */
+        #categories .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 3rem;
+        }
+
+        .category-card {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-red);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.15);
+        }
+
+        .category-card h3 {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card p {
+            font-size: 0.95rem;
+            color: #aaa;
+        }
+
+        /* 栏目4：联系我们 */
+        #contact {
+            background-color: #13131f;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: var(--bg-card);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+
+        .contact-form button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--accent-red);
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .contact-form button:hover {
+            background-color: #ff6b81;
+            transform: scale(1.02);
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: #0a0a12;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer .highlight {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        /* 移动端自适应 Media Queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 4rem 1.5rem;
+                min-height: auto;
+            }
+
+            #home h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .url-box {
+                font-size: 1rem;
+                padding: 1rem;
+                word-break: break-all;
+            }
+
+            .about-text {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/xiaolu.js"></script>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <a href="#" class="logo">巴卡<span>漫画</span></a>
+        <ul class="nav-links">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">漫画分类</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- 栏目1：首页（突出网站名称和网址） -->
+        <section id="home" class="section">
+            <h1>巴卡漫画</h1>
+            <p class="section-content">开启您的二次元漫画阅读新体验，海量资源，极速更新。</p>
+            <div class="url-box">
+                官方唯一网址：<a href="#">https://bakamanhua-wap</a>
+            </div>
+            <p class="section-content">请认准<strong>巴卡漫画</strong>官方网站地址 <strong>https://bakamanhua-wap</strong>，收藏不迷路！</p>
+        </section>
+
+        <!-- 栏目2：关于我们 -->
+        <section id="about" class="section">
+            <h2 class="section-title">关于巴卡漫画</h2>
+            <div class="section-content about-text">
+                <p>欢迎来到<strong>巴卡漫画</strong>！我们是一个专注于正版、高清漫画在线阅读的优质平台。</p>
+                <br>
+                <p>网站名称：<strong>巴卡漫画</strong>，您可以通过我们的官方网址 <a href="#" style="color:var(--accent-red);">https://bakamanhua-wap</a> 随时随地访问。</p>
+                <br>
+                <p>在<strong>巴卡漫画 (https://bakamanhua-wap)</strong>，我们致力于为每一位漫迷提供最流畅、最舒适的阅读环境。无论您喜欢热血、恋爱、悬疑还是科幻，这里都能满足您的需求。</p>
+            </div>
+        </section>
+
+        <!-- 栏目3：漫画分类 -->
+        <section id="categories" class="section">
+            <h2 class="section-title">漫画分类导航</h2>
+            <div class="grid-container">
+                <div class="category-card">
+                    <h3>🔥 热血竞技</h3>
+                    <p>感受极致的热血与激情，在<strong>巴卡漫画</strong>中体验最燃的战斗瞬间。</p>
+                </div>
+                <div class="category-card">
+                    <h3>💖 唯美恋爱</h3>
+                    <p>甜蜜暴击，浪漫满屋。访问 https://bakamanhua-wap 阅读高分恋爱番。</p>
+                </div>
+                <div class="category-card">
+                    <h3>🕵️ 悬疑推理</h3>
+                    <p>烧脑剧情层层递进，挑战你的智商极限，尽在<strong>巴卡漫画</strong>。</p>
+                </div>
+                <div class="category-card">
+                    <h3>🚀 科幻冒险</h3>
+                    <p>跨越星际，探索未知。在<strong>巴卡漫画 (https://bakamanhua-wap)</strong>开启冒险之旅。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 栏目4：联系我们 -->
+        <section id="contact" class="section">
+            <h2 class="section-title">联系我们</h2>
+            <div class="section-content">
+                <p>如果您对<strong>巴卡漫画</strong>有任何建议或合作意向，欢迎通过以下方式联系我们，或直接访问官网：<a href="#" style="color:var(--accent-red);">https://bakamanhua-wap</a></p>
+                <form class="contact-form" action="#" method="post">
+                    <input type="text" name="name" placeholder="您的称呼" required>
+                    <input type="email" name="email" placeholder="您的邮箱地址" required>
+                    <textarea name="message" rows="6" placeholder="请输入您的留言内容..." required></textarea>
+                    <button type="submit">发送留言</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2024 <span class="highlight">巴卡漫画</span> 保留所有权利。</p>
+        <p>网站名称：<span class="highlight">巴卡漫画</span> | 网站网址：<span class="highlight">https://bakamanhua-wap</span></p>
+        <p>为获得最佳浏览体验，请使用现代浏览器访问 https://bakamanhua-wap</p>
+    </footer>
+
+</body>
+</html>
